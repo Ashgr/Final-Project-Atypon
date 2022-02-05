@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nosql-atypon
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nosql-atypon
+  template:
+    metadata:
+      labels:
+        app: nosql-atypon
+    spec:
+      containers:
+      - name: nosql-atypon
+        image: aashgr/final-project:v3
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nosql-atypon
+spec:
+  type: LoadBalancer
+  selector:
+    app: nosql-atypon
+  ports:
+    - port: 3030
+      targetPort: 8080
