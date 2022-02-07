@@ -1,43 +1,5 @@
 {
   "data": [
-    {
-      "studio": "Mapa",
-      "name": "Attack On Titan",
-      "Hero": [
-        {
-          "name": "Erin"
-        },
-        {
-          "name": "Mikasa"
-        }
-      ],
-      "_id": "c4f2179c-eb4c-40ae-b4a7-5b9ba9ad2315"
-    },
-    {
-      "studio": "Mapa",
-      "name": "Attack On Titan",
-      "Hero": [
-        {
-          "name": "Erin"
-        },
-        {
-          "name": "Mikasa"
-        }
-      ],
-      "_id": "ea1eb928-0221-470e-87cd-d7e061279e7e"
-    },
-    {
-      "studio": "Mapa",
-      "name": "Attack On Titan",
-      "Hero": [
-        {
-          "name": "Erin"
-        },
-        {
-          "name": "Mikasa"
-        }
-      ],
-      "_id": "c8907573-0421-4bc8-a394-3ea313b5e25d"
-    }
+    
   ]
 }

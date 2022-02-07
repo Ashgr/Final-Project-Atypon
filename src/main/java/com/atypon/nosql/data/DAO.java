@@ -1,5 +1,6 @@
 package com.atypon.nosql.data;
 
+import com.atypon.nosql.record.AbstractRecord;
 import com.atypon.nosql.record.Attribute;
 import com.atypon.nosql.record.Record;
 
@@ -12,7 +13,7 @@ public interface DAO {
 
   public Object getByAttribute(Attribute attribute);
 
-  public void update(Record record) throws IOException;
+  public AbstractRecord update(Record record) throws IOException;
 
-  public Record delete(String recordID) throws IOException;
+  public AbstractRecord delete(String recordID) throws IOException;
 }

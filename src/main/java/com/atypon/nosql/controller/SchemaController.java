@@ -7,7 +7,9 @@ import com.atypon.nosql.data.DAO;
 import com.atypon.nosql.data.SchemaDAO;
 import com.atypon.nosql.middleware.AdminAuth;
 import com.atypon.nosql.middleware.AuthenticationLogin;
+import com.atypon.nosql.record.AbstractRecord;
 import com.atypon.nosql.record.Attribute;
+import com.atypon.nosql.record.NullRecord;
 import com.atypon.nosql.record.Record;
 import com.atypon.nosql.schema.SchemaBuilder;
 import com.atypon.nosql.utils.Hash;
@@ -37,14 +39,14 @@ public class SchemaController {
 
   public static Attribute getAttribute(Object key, Map<String, Object> body) {
     if (body.get(key) instanceof List) {
-      List<Attribute> nestedAttribute = new ArrayList<>();
+      ArrayList<Attribute> nestedAttribute = new ArrayList<>();
       for (Object data : (ArrayList<?>) body.get(key)) {
         LinkedHashMap<String, Object> smallAtt = (LinkedHashMap<String, Object>) data;
         Map.Entry<String, Object> entry = smallAtt.entrySet().iterator().next();
         Attribute currentAtt = new Attribute(entry.getKey(), entry.getValue());
         nestedAttribute.add(currentAtt);
       }
-      Attribute attribute = new Attribute(key.toString(), (ArrayList<Attribute>) nestedAttribute);
+      Attribute attribute = new Attribute(key.toString(), nestedAttribute);
       return attribute;
     } else {
       Attribute attribute = new Attribute(key.toString(), body.get(key));
@@ -149,7 +151,7 @@ public class SchemaController {
     if (!AuthenticationLogin.isLoggedIn(authToken)) {
       return new ResponseEntity("Login first ", HttpStatus.FORBIDDEN);
     }
-    File directory = new File(ResourcesPath.getProductionSchemaResource()); // current directory
+    File directory = new File(ResourcesPath.getDevelopmentSchemaResource()); // current directory
     File[] files = directory.listFiles();
     JSONArray jsonArray = new JSONArray();
     JSONParser jsonParser = new JSONParser();
@@ -178,5 +180,49 @@ public class SchemaController {
     } else {
       return new ResponseEntity("invalid credentials ", HttpStatus.FORBIDDEN);
     }
+  }
+
+  @DeleteMapping("/{schema}/{id}")
+  public Object delete(
+      @RequestHeader Map<String, String> headers,
+      @PathVariable("schema") String schema,
+      @PathVariable("id") String id)
+      throws IOException, ParseException {
+    String authToken = headers.get("authorization");
+    if (!AuthenticationLogin.isLoggedIn(authToken)) {
+      return new ResponseEntity("Login first ", HttpStatus.FORBIDDEN);
+    }
+    SchemaDAO schemaDAO = (SchemaDAO) SchemaDAO.getInstance(schema);
+    AbstractRecord record = schemaDAO.delete(id);
+    if (record.isNull()) {
+      return new ResponseEntity("user not found", HttpStatus.NOT_FOUND);
+    }
+    return record.toJson();
+  }
+
+  @PutMapping("/{schema}/{id}")
+  public Object update(
+      @RequestBody Map<String, Object> body,
+      @RequestHeader Map<String, String> headers,
+      @PathVariable("schema") String schema,
+      @PathVariable("id") String id)
+      throws IOException, ParseException {
+    String authToken = headers.get("authorization");
+    if (!AuthenticationLogin.isLoggedIn(authToken)) {
+      return new ResponseEntity("Login first ", HttpStatus.FORBIDDEN);
+    }
+    DAO dao = SchemaDAO.getInstance(schema);
+    Attribute idAttribute = new Attribute("_id", id);
+    if (dao.getByAttribute(idAttribute) instanceof NullRecord) {
+      return new ResponseEntity("user not found", HttpStatus.NOT_FOUND);
+    }
+    List<Attribute> attributes = new ArrayList<>();
+    for (Object key : body.keySet()) {
+      Attribute attribute = getAttribute(key, body);
+      attributes.add(attribute);
+    }
+    attributes.add(idAttribute);
+    Record record = new Record(attributes);
+    return dao.update(record).toJson();
   }
 }

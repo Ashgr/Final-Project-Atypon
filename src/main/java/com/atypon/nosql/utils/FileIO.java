@@ -30,7 +30,7 @@ public class FileIO {
   public static ArrayList<Record> fileToRecords(String fileName)
       throws IOException, ParseException {
     FileReader fileReader =
-        new FileReader(ResourcesPath.getProductionDataResource() + fileName + ".json");
+        new FileReader(ResourcesPath.getDevelopmentDataResource() + fileName + ".json");
     JSONParser jsonParser = new JSONParser();
     JSONObject object = (JSONObject) jsonParser.parse(fileReader);
     ArrayList<Record> records = new ArrayList<>();
@@ -58,7 +58,7 @@ public class FileIO {
 
   private static void write(String fileName, JSONObject jsonObject) throws IOException {
     FileWriter fileWriter =
-        new FileWriter(ResourcesPath.getProductionDataResource() + fileName + ".json");
+        new FileWriter(ResourcesPath.getDevelopmentDataResource() + fileName + ".json");
     try {
       fileWriter.write(jsonObject.toJSONString());
       fileWriter.flush();
@@ -68,7 +68,7 @@ public class FileIO {
   }
 
   public static void createFile(String fileName) throws IOException {
-    File file = new File(ResourcesPath.getProductionDataResource() + fileName + ".json");
+    File file = new File(ResourcesPath.getDevelopmentDataResource() + fileName + ".json");
     if (file.createNewFile()) {
       System.out.println("File created: " + file.getName());
     } else {

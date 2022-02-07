@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 
-public class Record implements RecordBuilder {
+public class Record implements AbstractRecord {
   protected List<Attribute> data;
   private String recordID = "", createdAt;
 
