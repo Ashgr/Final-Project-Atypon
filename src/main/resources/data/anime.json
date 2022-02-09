@@ -1,5 +1,15 @@
 {
   "data": [
-    
+    {
+      "studio": "Mapa",
+      "createdAt": "2022-02-08 at 19:45:39 AST",
+      "name": "Attack on titan",
+      "Hero": [
+        {
+          "name": "Erin"
+        }
+      ],
+      "_id": "9a5879ca-2bd2-405e-b453-b825cb113d78"
+    }
   ]
 }

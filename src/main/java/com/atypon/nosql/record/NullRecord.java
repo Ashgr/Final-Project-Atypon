@@ -3,29 +3,29 @@ package com.atypon.nosql.record;
 import org.json.simple.JSONObject;
 
 public class NullRecord implements AbstractRecord {
-  private static final NullRecord nullRecord = new NullRecord();
+    private static final NullRecord nullRecord = new NullRecord();
 
-  private NullRecord() {
+    private NullRecord() {}
 
-  }
-  public static NullRecord getInstance(){
-    return nullRecord;
-  }
-  @Override
-  public JSONObject toJson() {
-    return new JSONObject();
-  }
+    public static NullRecord getInstance() {
+        return nullRecord;
+    }
 
-  @Override
-  public boolean isNull() {
-    return true;
-  }
+    @Override
+    public JSONObject toJson() {
+        return new JSONObject();
+    }
 
-  public String getRecordID() {
-    return "";
-  }
+    @Override
+    public boolean isNull() {
+        return true;
+    }
 
-  public Object getAttributes() {
-    return null;
-  }
+    public String getRecordID() {
+        return "";
+    }
+
+    public Object getAttributes() {
+        return null;
+    }
 }

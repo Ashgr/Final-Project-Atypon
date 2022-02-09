@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 
 public interface AbstractRecord {
 
-  public JSONObject toJson();
+    public JSONObject toJson();
 
-  public boolean isNull();
+    public boolean isNull();
 }

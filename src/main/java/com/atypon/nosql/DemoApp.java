@@ -8,7 +8,7 @@ import java.io.IOException;
 
 @SpringBootApplication
 public class DemoApp {
-	public static void main(String[] args) throws IOException, ParseException {
-		SpringApplication.run(DemoApp.class, args);
-	}
+    public static void main(String[] args) throws IOException, ParseException {
+        SpringApplication.run(DemoApp.class, args);
+    }
 }

@@ -7,13 +7,13 @@ import com.atypon.nosql.record.Record;
 import java.io.IOException;
 
 public interface DAO {
-  public Object getAll();
+    public Object getAll();
 
-  public Boolean add(Record record) throws IOException;
+    public Boolean add(Record record) throws IOException;
 
-  public Object getByAttribute(Attribute attribute);
+    public Object getByAttribute(Attribute attribute);
 
-  public AbstractRecord update(Record record) throws IOException;
+    public AbstractRecord update(Record record) throws IOException;
 
-  public AbstractRecord delete(String recordID) throws IOException;
+    public AbstractRecord delete(String recordID) throws IOException;
 }

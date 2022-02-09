@@ -1,7 +1,7 @@
 package com.atypon.nosql.schema;
 
 public enum SchemaDataTypes {
-  STRING,
-  INTEGER,
-  LIST;
+    STRING,
+    INTEGER,
+    LIST;
 }
